@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+
+    <style>
+        body {
+            height: 665px;
+            background-image: url("./background.JPEG");
+            background-size: 80rem;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu">
+
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="logo.jpg" width="110" alt="">
+            </a>
+
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link active" href="../../../Prototipo uno/SRC/frontend/prototipoUno.html">Analítica
+                        descriptiva</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../../Prototipo dos/SRC/frontend/p2.html">Alertas</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="../../../Prototipo tres/SRC/frontend/timelinechart.html">Geolocalización</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link logout" id="logout" href="#">salir</a>
+                </li>
+            </ul>
+        </nav>
+
+
+    </div>
+
+
+    <div class="container">
+        <div class="card" style="margin-top:5em;">
+            <h5 class="card-header">Bienvenidos</h5>
+            <div class="card-body">
+                <h5 class="card-title">Hola <span id="loggedinname"></span></h5>
+                <a href="../../../Prototipo uno/SRC/frontend/prototipoUno.html" class="btn btn-primary">Analítica
+                    descriptiva</a>
+                <a href="../../../Prototipo dos/SRC/frontend/p2.html" class="btn btn-primary">Alertas</a>
+                <a href="../../../Prototipo tres/SRC/frontend/timelinechart.html"
+                    class="btn btn-primary">Geolocalización</a>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+
+<script src="../../../Final product/SRC/Frontend/js/auth.js"></script>
+<script src="../../../Final product/SRC/Frontend/js/init.js"></script>
+
+<script>
+    // (A) RUN THIS ON PAGE LOAD
+    window.addEventListener("load", () => {
+        const auth = localStorage.getItem("auth");
+        const myname = localStorage.getItem("name");
+        const mycompany = localStorage.getItem("company");
+        //document.querySelector("#logout").innerText = "Logout " + myname;
+        document.querySelector("#logout").setAttribute('title', myname + " - Logout");
+        document.querySelector("#loggedinname").innerText = myname;
+    });
+</script>
+
+
+</html>

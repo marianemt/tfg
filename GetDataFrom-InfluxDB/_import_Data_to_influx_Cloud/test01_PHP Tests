@@ -1,0 +1,109 @@
+<?php
+
+use InfluxDB2\Client;
+use InfluxDB2\Model\WritePrecision;
+use InfluxDB2\Point;
+
+# You can generate an API token from the "API Tokens Tab" in the UI 
+// https://eu-central-1-1.aws.cloud2.influxdata.com/orgs/b2b8ef5d82258fa1/load-data/tokens
+// TEST01Full: ZuyBTx6eTQqfaVgWpS-gMJXduFJakGoxFgnC740pR4vC5ip0msELrC_cUYC6RwEr_9zr92tmsiG6Aaf3pCVrdg==
+//$token = getenv('INFLUX_TOKEN');
+$token = 'ZuyBTx6eTQqfaVgWpS-gMJXduFJakGoxFgnC740pR4vC5ip0msELrC_cUYC6RwEr_9zr92tmsiG6Aaf3pCVrdg==';
+$org = 'tmenath@gmail.com';
+$bucket = 'movimientos';
+
+$client = new Client([
+  "url" => "https://eu-central-1-1.aws.cloud2.influxdata.com",
+  "token" => $token,
+]);
+
+
+/*
+//Write Data
+//Option 1: Use InfluxDB Line Protocol to write data
+$writeApi = $client->createWriteApi();
+
+$data = "mem,host=host1 used_percent=23.43234543";
+
+$writeApi->write($data, WritePrecision::S, $bucket, $org);
+
+
+
+//Option 2: Use a Data Point to write data
+$point = Point::measurement('mem')
+    ->addTag('host', 'host1')
+    ->addField('used_percent', 23.43234543)
+    ->time(microtime(true));
+
+$writeApi->write($point, WritePrecision::S, $bucket, $org);
+
+
+
+
+//Option 3: Use Array structure to write data
+$dataArray = [
+    'name' => 'cpu',
+    'tags' => ['host' => 'server_nl', 'region' => 'us'],
+    'fields' => ['internal' => 5, 'external' => 6],
+    'time' => microtime(true)
+];
+
+$writeApi->write($dataArray, WritePrecision::S, $bucket, $org);
+
+*/
+
+/*
+curl --request -G https://us-west-2-1.aws.cloud2.influxdata.com/query?orgID=INFLUX_ORG_ID&database=MyDB&retention_policy=MyRP \
+  --header 'Authorization: Token ZuyBTx6eTQqfaVgWpS-gMJXduFJakGoxFgnC740pR4vC5ip0msELrC_cUYC6RwEr_9zr92tmsiG6Aaf3pCVrdg==' \
+  --header 'Accept: application/csv' \
+  --header 'Content-type: application/json' \
+  --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
+
+curl --request POST \
+  https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/query?orgID=b2b8ef5d82258fa1  \
+  --header 'Authorization: Token ZuyBTx6eTQqfaVgWpS-gMJXduFJakGoxFgnC740pR4vC5ip0msELrC_cUYC6RwEr_9zr92tmsiG6Aaf3pCVrdg==' \
+  --header 'Accept: application/csv' \
+  --header 'Content-type: application/vnd.flux' \
+  --data 'from(bucket:"movimientos")
+        |> range(start: -2d)
+        |> aggregateWindow(every: 1m, fn: mean)'
+
+
+curl --request POST \
+  https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/query?orgID=b2b8ef5d82258fa1  \
+  --header 'Authorization: Token ZuyBTx6eTQqfaVgWpS-gMJXduFJakGoxFgnC740pR4vC5ip0msELrC_cUYC6RwEr_9zr92tmsiG6Aaf3pCVrdg==' \
+  --header 'Accept: application/csv' \
+  --header 'Content-type: application/vnd.flux' \
+  --data 'from(bucket: "movimientos")
+  |> range(start: 2022-06-17T00:00:00Z, stop: 2022-06-17T11:59:00Z)
+  |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
+  |> yield(name: "mean")' > lsite3.csv
+
+
+
+curl --request POST \
+  https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/query?orgID=b2b8ef5d82258fa1  \
+  --header 'Authorization: Token ZuyBTx6eTQqfaVgWpS-gMJXduFJakGoxFgnC740pR4vC5ip0msELrC_cUYC6RwEr_9zr92tmsiG6Aaf3pCVrdg==' \
+  --header 'Accept: application/csv' \
+  --header 'Content-type: application/vnd.flux' \
+  --data 'from(bucket: "movimientos")
+  |> range(start: 2022-06-17T00:00:00Z, stop: 2022-06-17T10:00:00Z)' > lsite4.csv
+
+
+//Execute a Flux query
+$query = "from(bucket: \"movimientos\") |> range(start: -2d)";
+$tables = $client->createQueryApi()->query($query, $org);
+
+foreach ($tables as $table) {
+    foreach ($table->records as $record) {
+        $time = $record->getTime();
+        $measurement = $record->getMeasurement();
+        $field = $record->getField();
+        $value = $record->getValue();
+        print "$time $measurement: $field=$value\n";
+    }
+}
+//https://eu-central-1-1.aws.cloud2.influxdata.com/orgs/b2b8ef5d82258fa1/load-data/client-libraries/php
+
+//Dispose the Client
+$client->close();

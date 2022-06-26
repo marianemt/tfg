@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>InfluxDB time series with D3.js</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+    <script src="https://d3js.org/d3-collection.v1.min.js"></script>
+    <script src="https://d3js.org/d3-dispatch.v1.min.js"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+    <script src="https://d3js.org/d3-request.v1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .rect:hover {
+            opacity: 0.85;
+        }
+
+        .toolTip {
+            position: absolute;
+            display: none;
+            min-width: 35px;
+            height: auto;
+            background: none repeat scroll 0 0 #ffffff;
+            border: 1px solid #6F257F;
+            padding: 6px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        #dashgrid {
+            width: 100%;
+            display: grid;
+            /*grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr)); automatisch soviele in einer Zeile wie man braucht*/
+            grid-template-columns: minmax(40em, 1fr);
+            grid-row-gap: 20px;
+            grid-column-gap: 20px;
+            margin: auto;
+
+        }
+
+        @media(min-width: 940px) {
+            #dashgrid {
+                width: 949px;
+            }
+        }
+
+        line.horizonalGrid {
+            fill: none;
+            shape-rendering: crispEdges;
+            stroke: silver;
+            stroke-width: 1.5px;
+        }
+
+        #sensors {
+            background-color: white;
+            border: 1px solid rgb(255, 255, 255);
+        }
+
+        .axis path {
+            stroke: black;
+            stroke-width: 2px;
+        }
+
+        .axis line {
+            stroke: black;
+            stroke-width: 1.5px;
+        }
+
+        .axis text {
+            fill: black;
+            font-weight: bold;
+            font-size: 14px;
+            font-family: "Arial Black", Gadget, sans-serif;
+        }
+
+        .legend text {
+            fill: black;
+            font-family: "Arial Black", Gadget, sans-serif;
+        }
+
+
+        #temperature {
+            background-color: white;
+            border: 1px solid blueviolet;
+        }
+
+        #wind {
+            background-color: white;
+            border: 1px solid yellowgreen;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="dashgrid" class="main" style="text-align: center;">
+
+        <div id="sensors">
+            <h2>Data from InfluxDB Cloud per Ajax</h2>
+                <div id="d3-containersensors"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var width = document.getElementById('sensors').offsetWidth;
+        //alert(width);
+        var height = width * 0.75;
+    </script>
+
+
+    <script type="text/javascript" src="createlinetime_xhr.js"></script>
+
+
+</body>
+
+</html>

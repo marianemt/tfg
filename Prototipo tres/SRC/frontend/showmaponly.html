@@ -1,0 +1,131 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sensors</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!--D3.V4.MICROLIBRARIES-->
+    <link rel="stylesheet" href="assets/d3-context-menu.css">
+    <script src="assets/d3-context-menu.js"></script>
+    <!-- D3.V4.FLOORPLAN -->
+    <script src="assets/d3.v4.floorplan_draw.js"></script>
+    <link rel="stylesheet" href="assets/d3.v4.floorplan.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+    <style>
+        li.nav-item>a.active {
+            color: navy;
+            font-weight: bold;
+        }
+
+        body {}
+
+        .rect:hover {
+            opacity: 0.85;
+        }
+
+        .toolTip {
+            position: absolute;
+            display: none;
+            min-width: 35px;
+            height: auto;
+            background: none repeat scroll 0 0 #ffffff;
+            border: 1px solid #6F257F;
+            padding: 6px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        th {
+            color: #fff;
+        }
+    </style>
+    <!--Uncomment for debugging-->
+</head>
+
+<body>
+
+    <div class="menu">
+
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="../../data/logo.jpg" width="110" alt="">
+            </a>
+
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="../../../Prototipo uno/SRC/frontend/prototipoUno.html">Analítica
+                        descriptiva</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../../Prototipo dos/SRC/frontend/p2.html">Alertas</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active"
+                        href="../../../Prototipo tres/SRC/frontend/timelinechart.html">Geolocalización</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link logout" id="logout" href="#">salir</a>
+                </li>
+            </ul>
+        </nav>
+
+
+    </div>
+
+    <hr>
+
+    <br />
+
+    <h2 id="topheading" class="mx-auto text-center"> Sensores </h2>
+    <div id="d3svg" style="text-align:center;margin:auto">
+        <svg width="866" height="853"></svg>
+    </div>
+
+    <div id="btndiv" class="mx-auto mt-4 text-center">
+        <button type="button" class="btn btn-success btn-sm"
+            onClick="document.getElementById('showdata').classList.add('show')">show
+            table</button>
+    </div>
+    <div id="showdata" class="w-50 mt-4 mx-auto collapse">
+        <table class="table table-striped w-100">
+            <tr class="bg-info">
+                <th>Sensor</th>
+                <th>Time</th>
+                <th>Value</th>
+            </tr>
+
+            <tbody id="myTable">
+
+            </tbody>
+        </table>
+        <div id="btns2" class="mx-auto mt-2 mb-4 text-center">
+            <button type="button" class="btn btn-info btn-sm"
+                onClick="document.getElementById('showdata').classList.remove('show')">hide
+                data</button>
+            <div id="space" class="mt-2 mb-4 text-center">&nbsp;</div>
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript" src="./onlyshowmap.js"></script>
+
+    <div id="space" class="mt-2 mb-4 text-center">&nbsp;</div>
+    <div id="space" class="mt-2 mb-4 text-center">&nbsp;</div>
+    <div id="space" class="mt-2 mb-4 text-center">&nbsp;</div>
+    <div id="footerinfo" class="fixed-bottom mx-auto mt-4 text-center text-muted bg-light align-bottom">
+        <p>en caso de que se quiera probar manualmente:<strong>?date=2022-05-18&time1=11:30&time2=11:45</strong></p>
+    </div>
+
+    <script defer src="../../../Final product/SRC/Frontend/js/auth.js"></script>
+    <script defer src="../../../Final product/SRC/Frontend/js/init.js"></script>
+
+
+</body>
+
+</html>

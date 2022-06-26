@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="js/login.js"></script>
+    <style>
+        body {
+            height: 665px;
+            background-image: url("./background.JPEG");
+            background-size: 80rem;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="menu">
+        <nav class="navbar navbar-expand-sm bg-light">
+            <img src="logo.jpg" width="110" />
+            <ul class="navbar-nav">
+
+                <div class="login-container">
+                    <!--<form action="inicioSesion.html">
+                        <input type="text" placeholder="Usuario" name="username">
+                        <input type="text" placeholder="Código" name="cod">
+                        <button onclick="go()" type="submit">Iniciar</button>
+
+                    </form>-->
+
+
+                    <div id="error-message-all" style="color:red;display:inline-block"></div>
+                    <form class="form-inline loginForm" action="inicioSesion.html">
+                        <div class="form-group mb-2">
+                            <label for="username" class="sr-only"></label>
+                            <input type="text" placeholder="Usuario" id="username" class="input form-control">
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                            <label for="inputPassword2" class="sr-only"></label>
+                            <input type="password" placeholder="Código" id="password" class="input form-control">
+                            <span class="error-message"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Iniciar</button>
+                    </form>
+
+
+                </div>
+            </ul>
+        </nav>
+    </div>
+
+</body>
+
+
+
+</html>
